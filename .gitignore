@@ -24,3 +24,6 @@ big_commerce-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Editor temp files
+*.swp

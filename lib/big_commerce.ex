@@ -6,19 +6,6 @@ defmodule BigCommerce do
   @type code :: non_neg_integer()
   @type reason :: any()
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> BigCommerce.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
-
   @doc ~S"""
   Create client
 
@@ -73,5 +60,18 @@ defmodule BigCommerce do
         ]
 
     Tesla.client(middleware, adapter)
+  end
+
+  @doc """
+  Hello world.
+
+  ## Examples
+
+      iex> BigCommerce.hello()
+      :world
+
+  """
+  def hello do
+    :world
   end
 end

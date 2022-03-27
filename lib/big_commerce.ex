@@ -36,7 +36,10 @@ defmodule BigCommerce do
           {Tesla.Middleware.BaseUrl, :call, ["https://api.bigcommerce.com/stores/123456/v3/"]},
           {Tesla.Middleware.Headers, :call,
            [[{"x-auth-token", "abc123"}, {"content-type", "application/json"}, {"accept", "application/json"}]]},
-          {Tesla.Middleware.JSON, :call, [[]]}
+          {Tesla.Middleware.JSON, :call, [[]]},
+          {Tesla.Middleware.Logger, :call, [[]]},
+          {Tesla.Middleware.Telemetry, :call, [[]]},
+          {Tesla.Middleware.OpenTelemetry, :call, [[]]}
         ]
       }
   """
@@ -50,15 +53,21 @@ defmodule BigCommerce do
     opts_middleware = opts[:middleware] || []
     adapter = opts[:adapter]
 
-    middleware = opts_middleware ++ [
-      {Tesla.Middleware.BaseUrl, base_url},
-      {Tesla.Middleware.Headers, [
-        {"x-auth-token", access_token},
-        {"content-type", "application/json"},
-        {"accept", "application/json"},
-      ]},
-      {Tesla.Middleware.JSON, []},
-    ]
+    middleware =
+      opts_middleware ++
+        [
+          {Tesla.Middleware.BaseUrl, base_url},
+          {Tesla.Middleware.Headers,
+           [
+             {"x-auth-token", access_token},
+             {"content-type", "application/json"},
+             {"accept", "application/json"}
+           ]},
+          Tesla.Middleware.JSON,
+          Tesla.Middleware.Logger,
+          Tesla.Middleware.Telemetry,
+          Tesla.Middleware.OpenTelemetry
+        ]
 
     Tesla.client(middleware, adapter)
   end

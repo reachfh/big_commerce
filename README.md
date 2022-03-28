@@ -24,3 +24,20 @@ If you want to use Telemetry handler, make sure you add the following lines to y
 ```elixir
 OpentelemetryTesla.setup()
 ```
+
+By default Tesla uses the adapter `Tesla.Adapter.Httpc`, because `:httpc` is
+included in Erlang/OTP and does not require installation of any additional
+dependency. It can be changed globally with config:
+
+```elixir
+config :tesla, :adapter, Tesla.Adapter.Hackney
+```
+
+This can be helpful to debug communications:
+```elixir
+config :tesla, Tesla.Middleware.Logger, debug: false
+# Logging configuration is evaluated at compile time, so Tesla must be
+# recompiled for the configuration to take effect:
+#   mix deps.clean --build tesla
+#   mix deps.compile tesla
+```

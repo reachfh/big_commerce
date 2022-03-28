@@ -53,3 +53,4 @@ config :tesla, Tesla.Middleware.Logger, debug: false
 # recompiled for the configuration to take effect:
 #   mix deps.clean --build tesla
 #   mix deps.compile tesla
+```

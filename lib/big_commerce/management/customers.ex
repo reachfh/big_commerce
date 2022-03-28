@@ -27,13 +27,9 @@ defmodule BigCommerce.Management.Customers do
 
   """
 
-  @spec create_customer(Tesla.Client.t(), map() | list(map())) :: {:ok, any} | {:error, code, reason}
-  def create_customer(client, data) when is_list(data) do
+  @spec create_customer(Tesla.Client.t(), list(map()) | binary()) :: {:ok, any} | {:error, code, reason}
+  def create_customer(client, data) do
     Client.post(client, "/v3/customers", data)
-  end
-
-  def create_customer(client, data) when is_map(data) do
-    create_customer(client, [data])
   end
 
   @doc ~S"""

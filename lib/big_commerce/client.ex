@@ -3,43 +3,50 @@ defmodule BigCommerce.Client do
 
   # Unwrap Tesla API responses
 
-  @type code :: non_neg_integer()
-  @type reason :: any()
+  use BigCommerce.Types
 
-  @spec get(Tesla.Client.t(), binary(), Keyword.t()) :: {:ok, any} | {:error, code, reason}
-  def get(client, url, query \\ []) do
-    tesla_response(Tesla.get(client, url, query))
+  @spec get(Tesla.Client.t(), Tesla.Env.url(), [Tesla.option()]) :: {:ok, any()} | {:error, code, reason}
+  def get(client, url, opts \\ [])
+
+  def get(client, url, opts) do
+    tesla_response(Tesla.get(client, url, opts))
   end
 
-  @spec delete(Tesla.Client.t(), binary()) :: {:ok, any} | {:error, code, reason}
-  def delete(client, url) do
-    tesla_response(Tesla.delete(client, url))
+  @spec delete(Tesla.Client.t(), Tesla.Env.url(), [Tesla.option()]) :: {:ok, any} | {:error, code, reason}
+  def delete(client, url, opts \\ [])
+
+  def delete(client, url, opts) do
+    tesla_response(Tesla.delete(client, url, opts))
   end
 
-  @spec post(Tesla.Client.t(), binary(), any()) :: {:ok, any} | {:error, code, reason}
-  def post(client, url, data) when is_binary(data) do
-    tesla_response(Tesla.post(client, url, data))
+  @spec post(Tesla.Client.t(), Tesla.Env.url(), Tesla.Env.body(), [Tesla.option()]) :: {:ok, any()} | {:error, code, reason}
+  def post(client, url, body, opts \\ [])
+
+  def post(client, url, body, opts) when is_binary(body) do
+    tesla_response(Tesla.post(client, url, body, opts))
   end
 
-  def post(client, url, data) do
-    case Jason.encode(data) do
+  def post(client, url, body, opts) do
+    case Jason.encode(body) do
       {:ok, encoded} ->
-        post(client, url, encoded)
+        post(client, url, encoded, opts)
 
       {:error, reason} ->
         {:error, 0, reason}
     end
   end
 
-  @spec put(Tesla.Client.t(), binary, any) :: {:ok, any} | {:error, code, reason}
-  def put(client, url, data) when is_binary(data) do
-    tesla_response(Tesla.put(client, url, data))
+  @spec put(Tesla.Client.t(), Tesla.Env.url(), Tesla.Env.body(), [Tesla.option()]) :: {:ok, any()} | {:error, code, reason}
+  def put(client, url, body, opts \\ [])
+
+  def put(client, url, body, opts) when is_binary(opts) do
+    tesla_response(Tesla.put(client, url, body, opts))
   end
 
-  def put(client, url, data) do
-    case Jason.encode(data) do
+  def put(client, url, body, opts) do
+    case Jason.encode(body) do
       {:ok, encoded} ->
-        put(client, url, encoded)
+        put(client, url, encoded, opts)
 
       {:error, reason} ->
         {:error, 0, reason}

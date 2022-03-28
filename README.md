@@ -70,7 +70,7 @@ mix deps.compile tesla
 ## Usage
 
 Talking to the BigCommerce API requires a `store_hash`, which identifies the specific
-store, and an `access_token` which authenticates the client. 
+store, and an `access_token` which authenticates the client.
 
 First create an API client, which will then be used for calls to the API:
 
@@ -91,4 +91,10 @@ Then in code, you can do:
 ```elixir
 client_config = Application.get_env(:myapp, :big_commerce_client)
 client = BigCommerce.client(client_config)
+```
+
+After you have the client, make api calls like this:
+
+```elixir
+BigCommerce.Catalog.get_products(client)
 ```

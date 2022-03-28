@@ -39,7 +39,7 @@ defmodule BigCommerce.Client do
   @spec put(Tesla.Client.t(), Tesla.Env.url(), Tesla.Env.body(), [Tesla.option()]) :: {:ok, any()} | {:error, code, reason}
   def put(client, url, body, opts \\ [])
 
-  def put(client, url, body, opts) when is_binary(opts) do
+  def put(client, url, body, opts) when is_binary(body) do
     tesla_response(Tesla.put(client, url, body, opts))
   end
 

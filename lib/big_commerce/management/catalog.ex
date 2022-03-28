@@ -1,6 +1,6 @@
-defmodule BigCommerce.Catalog do
+defmodule BigCommerce.Management.Catalog do
   @moduledoc """
-  Catalog v3 API.
+  Catalog API.
   """
 
   @type code :: non_neg_integer()
@@ -13,7 +13,7 @@ defmodule BigCommerce.Catalog do
   """
   @spec get_products(Tesla.Client.t(), Keyword.t()) :: {:ok, any} | {:error, code, reason}
   def get_products(client, query \\ []) do
-    Client.get(client, "/catalog/products", query: query)
+    Client.get(client, "/v3/catalog/products", query: query)
   end
 
 end

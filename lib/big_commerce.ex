@@ -11,8 +11,9 @@ defmodule BigCommerce do
 
   Options are:
 
-  * store_hash: unique identifier for store
-  * adapter: Tesla adapter config
+  * store_hash: unique identifier for store (required)
+  * access_token: API acccess token (required)
+  * adapter: Tesla adapter config (optional)
   * middleware: List of additional middleware module config (optional)
 
   ## Examples
@@ -23,7 +24,7 @@ defmodule BigCommerce do
         fun: nil,
         post: [],
         pre: [
-          {Tesla.Middleware.BaseUrl, :call, ["https://api.bigcommerce.com/stores/123456/v3/"]},
+          {Tesla.Middleware.BaseUrl, :call, ["https://api.bigcommerce.com/stores/123456/v3"]},
           {Tesla.Middleware.Headers, :call,
            [[{"x-auth-token", "abc123"}, {"content-type", "application/json"}, {"accept", "application/json"}]]},
           {Tesla.Middleware.JSON, :call, [[]]},
@@ -38,7 +39,7 @@ defmodule BigCommerce do
     store_hash = Keyword.fetch!(opts, :store_hash)
     access_token = Keyword.fetch!(opts, :access_token)
 
-    base_url = opts[:base_url] || "https://api.bigcommerce.com/stores/#{store_hash}/v3/"
+    base_url = opts[:base_url] || "https://api.bigcommerce.com/stores/#{store_hash}/v3"
 
     opts_middleware = opts[:middleware] || []
     adapter = opts[:adapter]

@@ -27,17 +27,29 @@ OpentelemetryTesla.setup()
 
 By default Tesla uses the adapter `Tesla.Adapter.Httpc`, because `:httpc` is
 included in Erlang/OTP and does not require installation of any additional
-dependency. It can be changed globally with config:
+dependency. It is not, however, recommended to use it in production environment
+as it does not validate SSL certificates
+[among other issues](https://github.com/teamon/tesla/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Ahttpc+).
+
+You can change the adapter to `hackney` globally `config/config.exs`:
 
 ```elixir
 config :tesla, :adapter, Tesla.Adapter.Hackney
 ```
 
-This can be helpful to debug communications:
+Add `hackney` as a dependency in `mix.exs`:
+
+```elixir
+{:hackney, "~> 1.18"},
+```
+
+When the Elixir Logger log level is set to `:debug` Tesla Logger will show full
+request and response. This can be pretty noisy. If you want to disable detailed
+request/response logging set `debug: false` in your config:
+
 ```elixir
 config :tesla, Tesla.Middleware.Logger, debug: false
 # Logging configuration is evaluated at compile time, so Tesla must be
 # recompiled for the configuration to take effect:
 #   mix deps.clean --build tesla
 #   mix deps.compile tesla
-```

@@ -13,5 +13,4 @@ defmodule BigCommerce.Management.Cart do
   def create_cart(client, data, opts \\ []) do
     Client.post(client, "/v3/carts", data, opts)
   end
-
 end

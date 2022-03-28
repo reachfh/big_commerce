@@ -40,7 +40,7 @@ defmodule BigCommerce.Management.Customers do
   Get customers.
   """
   @spec get_customers(Tesla.Client.t(), Keyword.t()) :: {:ok, any} | {:error, code, reason}
-  def get_products(client, query \\ []) do
+  def get_customers(client, query \\ []) do
     Client.get(client, "/v3/customers", query: query)
   end
 end

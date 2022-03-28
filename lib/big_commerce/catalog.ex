@@ -9,6 +9,7 @@ defmodule BigCommerce.Catalog do
   alias BigCommerce.Client
 
   @doc ~S"""
+  Get products, with support for querying.
   """
   @spec get_products(Tesla.Client.t(), Keyword.t()) :: {:ok, any} | {:error, code, reason}
   def get_products(client, query \\ []) do

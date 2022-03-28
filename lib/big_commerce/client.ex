@@ -1,6 +1,8 @@
 defmodule BigCommerce.Client do
   @moduledoc false
 
+  # Unwrap Tesla API responses
+
   @type code :: non_neg_integer()
   @type reason :: any()
 

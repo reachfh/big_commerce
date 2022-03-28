@@ -3,13 +3,11 @@ defmodule BigCommerce.Management.Catalog do
   Catalog API.
   """
 
-  @type code :: non_neg_integer()
-  @type reason :: any()
-
+  use BigCommerce.Types
   alias BigCommerce.Client
 
   @doc ~S"""
-  Get products, with support for querying.
+  Get products.
   """
   @spec get_products(Tesla.Client.t(), Keyword.t()) :: {:ok, any} | {:error, code, reason}
   def get_products(client, query \\ []) do

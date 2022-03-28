@@ -3,9 +3,7 @@ defmodule BigCommerce.Management.Customers do
   Customers API.
   """
 
-  @type code :: non_neg_integer()
-  @type reason :: any()
-
+  use BigCommerce.Types
   alias BigCommerce.Client
 
   @doc ~S"""

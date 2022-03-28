@@ -3,9 +3,6 @@ defmodule BigCommerce do
   Elixir client for [BigCommerce](https://developer.bigcommerce.com/api-reference/) API.
   """
 
-  @type code :: non_neg_integer()
-  @type reason :: any()
-
   @doc ~S"""
   Create client
 
